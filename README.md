@@ -26,7 +26,7 @@ Next, you need to install/run the following (if you've run this or a similar tut
 
 3. Install the [Alexa Skills Kit CLI](https://developer.amazon.com/en-US/docs/alexa/smapi/quick-start-alexa-skills-kit-command-line-interface.html): `npm install --global ask-cli`
 
-    Then run `ask configure` to login in with your Amazon Developer account and link your AWS credentials
+    Then run `ask configure` to log in with your Amazon Developer account and link your AWS credentials
 
     Assuming that you want to use the AWS profile you just configured in the previous step, you'll also want to run `export AWS_PROFILE="ask_cli_default"` and/or store that environment variable in a way where it persists for this project
 
@@ -68,7 +68,7 @@ Once you have successfully created your Alexa skill (you can go into the [Alexa 
 ```ts
 // Create a stack for production
 new AlexaSkillStack(app, 'cdktf-integration-alexa-example', {
-  skillId: 'amzn1.ask.skill.xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', // Replace with your Alexa skill ID
+  skillId: 'amzn1.ask.skill.xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
   environment: 'production',
 });
 ```
@@ -93,10 +93,11 @@ The result should look something like:
 Deploying Stack: cdktf-integration-alexa-example
 Resources
  ✔ AWS_DYNAMODB_TABLE    database            aws_dynamodb_table.database
+ ✔ AWS_IAM_ROLE          lambda-exec         aws_iam_role.lambda-exec
  ✔ AWS_LAMBDA_FUNCTION   lambda              aws_lambda_function.lambda
  ✔ AWS_LAMBDA_PERMISSION lambda-permission   aws_lambda_permission.lambda-permission
 
-Summary: 3 created, 0 updated, 0 destroyed.
+Summary: 4 created, 0 updated, 0 destroyed.
 
 Output: lambdaEndpoint = arn:aws:lambda:us-east-1:xxxxxxxxxxxx:function:cdktf-integration-alexa
 ```
@@ -139,15 +140,15 @@ Now deploy your Alexa skill manifest again:
 ask deploy --target skill-metadata
 ```
 
-You should now have a working, testable Alexa skill! Note that Alexa skills are not available to the public until you go through certification; in other words, no one but you can access this particular skill right now.
+You should now have a working, testable Alexa skill! Note that Alexa skills are not available to the public until you go through [certification](https://developer.amazon.com/en-US/docs/alexa/custom-skills/certification-requirements-for-custom-skills.html); in other words, no one but you can access this particular skill right now.
 
 ### Testing
 
-The easiest way to test your skill is to open the Alexa Developer Console in your browser, click on your skill, and then go to the "Test" tab. If you own an Echo device or have the Alexa app on your phone, and if this device or app uses the same Amazon account as the one you used to sign up for Amazon Developer Console access, you should be able to access your own skill by talking to your device and saying, "Alexa, launch HashiCorp Principles."
+The easiest way to test your skill is to open the [Alexa Developer Console](https://developer.amazon.com/alexa/console/ask) in your browser, click on your skill, and then go to the "Test" tab. If you own an Echo device or have the Alexa app on your phone, and if this device or app uses the same Amazon account as the one you used to sign up for Amazon Developer Console access, you should be able to access your skill by talking to your device and saying, "Alexa, launch HashiCorp Principles."
 
 ## Usage
 
-The bundled Alexa skill, named "HashiCorp Principles", is a simple conversational interface loosely adapted from the [Alexa fact skill sample](https://github.com/alexa-samples/skill-sample-nodejs-fact), using the [HashiCorp company principles](https://www.hashicorp.com/our-principles) as content. It supports the following utterances (and slight variations of):
+The bundled Alexa skill, named "HashiCorp Principles", is a simple conversational interface loosely adapted from the [Alexa fact skill sample](https://github.com/alexa-samples/skill-sample-nodejs-fact), using the [HashiCorp company principles](https://www.hashicorp.com/our-principles) as content. It supports the following utterances (and slight variations thereof):
 
   - _"Alexa, open HashiCorp Principles"_ or _"Alexa, launch HashiCorp principles"_ will launch the skill, look up a random company principle, and read out a brief description
     - When Alexa is done speaking, you can say _"tell me more"_ and she will read the extended description of the same principle
@@ -183,7 +184,7 @@ I could see CDKTF being useful for Alexa skill development only in the following
 
 #### The entire organization is already using Terraform
 
-If there's an org-wide initiative to get all infrastructure into Terraform, particularly if it's enforced by a platform engineering team but where in this case we do want the Alexa skill developers to have control their infrastructure themselves, then CDKTF is a great solution that will make everyone happy: the platform team can rest content that all aspects of the skill's infrastructure are managed through Terraform, while the Alexa developers can manage that configuration through TypeScript rather than having to learn HCL.
+If there's an org-wide initiative to get all infrastructure into Terraform, particularly if it's enforced by a platform engineering team but where in this case we do want the Alexa skill developers to have control their infrastructure themselves, then CDKTF is a great solution that will make everyone happy: the platform team can rest assured that all aspects of the skill's infrastructure are managed through Terraform, while the Alexa developers can manage that configuration through TypeScript rather than having to learn HCL.
 
 #### There is a sizeable team of developers working on the same Alexa skill
 
@@ -191,12 +192,12 @@ One headache I faced on my last team was that we had several engineers working o
 
 Funny enough, I talked to a few other teams who faced this issue and it seems like in the end everyone arrived at the same solution: every developer ends up just creating their own version of the skill, pointed at their own Lambda. That means that given a hypothetical team of Alice, Bob, and Jane, the company's combined set of Alexa skills and infrastructure might look something like this:
 
-| Alexa skill name               | Lambda function name                 | DynamoDB table name                  |
-|--------------------------------|--------------------------------------|--------------------------------------|
-| HashiCorp Principles           | hashicorp-principles-skill           | hashicorp-principles-skill           |
-| HashiCorp Principles Alice Dev | hashicorp-principles-skill-alice-dev | hashicorp-principles-skill-alice-dev |
-| HashiCorp Principles Bob Dev   | hashicorp-principles-skill-bob-dev   | hashicorp-principles-skill-bob-dev   |
-| HashiCorp Principles Jane Dev  | hashicorp-principles-skill-jane-dev  | hashicorp-principles-skill-jane-dev  |
+| Alexa skill name               | Lambda function name      | DynamoDB table name       |
+|--------------------------------|---------------------------|---------------------------|
+| HashiCorp Principles           | hashicorp-skill           | hashicorp-skill           |
+| HashiCorp Principles Alice Dev | hashicorp-skill-alice-dev | hashicorp-skill-alice-dev |
+| HashiCorp Principles Bob Dev   | hashicorp-skill-bob-dev   | hashicorp-skill-bob-dev   |
+| HashiCorp Principles Jane Dev  | hashicorp-skill-jane-dev  | hashicorp-skill-jane-dev  |
 
 ... So even though Alexa infrastructure is normally set-it-and-forget-it, now, suddenly, you've got 4 Lambdas, 4 DynamoDB tables, etc. But maybe the development versions don't need _identical_ settings to the production infrastructure; DynamoDB's provisioned throughput is a great example where the version receiving real user traffic needs high thresholds, while the minimums will do just fine for development environments. And not to mention what needs to happen when, for example, Bob leaves and the team onboards a new developer named Charlie. It'd be nice to have all of that configuration templated so that you push a button and Charlie's set up and ready to go, with the same solid, well-tested infrastructure that Alice and Jane are already using to develop on every day. So yeah, _now_ you have a great use case for infrastructure as code.
 
@@ -208,7 +209,7 @@ I have heard stories of other companies who butted up against some of the limita
 
 ## Limitations
 
-The biggest limitation was already briefly alluded to above in the [Background](#background) section, but to expand on that a little, in this CDKTF integration example in its present state, anytime a user is both making changes to the skill's interaction model as well as the code, these changes must always be deployed separately:
+The biggest limitation was already briefly alluded to above in the [Background](#background) section, but to expand on that a little, in this CDKTF integration example in its present state, anytime a user is both making changes to the skill's [interaction model](./skill-package/interactionModels/custom/en-US.json) as well as the [code](./lambda/index.ts), these changes must always be deployed separately:
 
 ```shell
 ask deploy --target skill-metadata # to deploy the interaction model changes
@@ -219,4 +220,4 @@ However, if the user had configured their project using the ASK CLI with a Cloud
 
 The good news is that a solution has already been proposed that, when implemented, could allow us to create a better workflow: [#682 Lifecycle Hooks](https://github.com/hashicorp/terraform-cdk/issues/682). A preDeploy or postDeploy hook that calls `ask deploy --target skill-metadata` under-the-hood would allow us to mimic the functionality of `ask deploy` and have everything be updated with a single command.
 
-In particular, I'm hoping that the postDeploy hook would give us access to the `lambdaEndpoint` variable returned by the `TerraformOutput` when `cdktf deploy` is run. You could imagine a script that then takes that Lambda endpoint and updates the relevant lines in the [skill manifest](https://developer.amazon.com/en-US/docs/alexa/smapi/skill-manifest.html) automatically before running `ask deploy --target skill-metadata` to point the skill to the right place, removing several steps from the end of the [Setup](#setup) process above.
+In particular, I'm hoping that the postDeploy hook would give us access to the `lambdaEndpoint` variable returned by the `TerraformOutput` when `cdktf deploy` is run. You could imagine a script that then takes that Lambda endpoint and updates the relevant lines in the [skill manifest](./skill-package/skill.json) automatically before running `ask deploy --target skill-metadata` to point the skill to the right place, removing several steps from the end of the [Setup](#setup) process above.
