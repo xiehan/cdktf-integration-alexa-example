@@ -1,0 +1,46 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "summary": "Learn about the principles of HashiCorp, which together describe the foundational characteristics of the company.",
+          "examplePhrases": [
+            "Alexa, open hashicorp principles",
+            "Alexa, ask hashicorp principles to tell me a principle",
+            "Alexa, ask hashicorp principles about kindness"
+          ],
+          "keywords": [
+            "hashicorp",
+            "company",
+            "principles"
+          ],
+          "name": "HashiCorp Principles",
+          "description": "An organization is driven by its people and culture. This skill informs you about the principles of HashiCorp, which together describe the foundational characteristics of the company. The principles provide a rubric by which we can make decisions and through a shared understanding we can act collectively in a consistent manner.\n\nTo start, just say \"Alexa, launch HashiCorp Principles\" or \"Alexa, open HashiCorp Principles\".\n\nAt anytime, you can stop by saying \"Alexa, stop\"."
+        }
+      },
+      "isAvailableWorldwide": false,
+      "automaticDistribution": {
+        "isActive": true,
+        "sourceLocaleForLanguages": [
+          {
+            "language": "en",
+            "sourceLocale": "en-US"
+          }
+        ]
+      },
+      "distributionMode": "PUBLIC",
+      "category": "BUSINESS_AND_FINANCE"
+    },
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "usesPersonalInfo": false,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false
+    },
+    "apis": {
+      "custom": {}
+    },
+    "manifestVersion": "1.0"
+  }
+}

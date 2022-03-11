@@ -1,0 +1,156 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "hashicorp principles",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NextIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "MoreIntent",
+          "samples": [
+            "more",
+            "tell me more",
+            "learn more",
+            "give me more",
+            "I want to know more",
+            "I want to learn more"
+          ]
+        },
+        {
+          "name": "GetNewPrincipleIntent",
+          "samples": [
+            "a principle",
+            "a new principle",
+            "another principle",
+            "one of the principles",
+            "tell me a principle",
+            "tell me a new principle",
+            "tell me another principle",
+            "tell me about another principle",
+            "tell me about one of the principles",
+            "give me a principle",
+            "give me a new principle",
+            "give me another principle",
+            "give me one of the principles",
+            "teach me a principle",
+            "teach me a new principle",
+            "teach me another principle",
+            "teach me about another principle",
+            "teach me about one of the principles",
+            "what is a principle",
+            "what is another principle",
+            "what is one of the principles",
+            "what are the principles",
+            "give me some information",
+            "give me some HashiCorp information",
+            "tell me something",
+            "give me something"
+          ],
+          "slots": []
+        },
+        {
+          "name": "GetSpecificPrincipleIntent",
+          "samples": [
+            "{principle}",
+            "tell me about {principle}",
+            "teach me about {principle}",
+            "what about {principle}",
+            "what is {principle}",
+            "what does {principle} mean",
+            "what do you mean by {principle}",
+            "explain {principle}",
+            "explain {principle} to me"
+          ],
+          "slots": [
+            {
+              "name": "principle",
+              "type": "Principle"
+            }
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "Principle",
+          "values": [
+            {
+              "name": {
+                "value": "integrity"
+              }
+            },
+            {
+              "name": {
+                "value": "kindness"
+              }
+            },
+            {
+              "name": {
+                "value": "pragmatism"
+              }
+            },
+            {
+              "name": {
+                "value": "humility"
+              }
+            },
+            {
+              "name": {
+                "value": "vision"
+              }
+            },
+            {
+              "name": {
+                "value": "execution"
+              }
+            },
+            {
+              "name": {
+                "value": "communication"
+              }
+            },
+            {
+              "name": {
+                "value": "beauty works better"
+              }
+            },
+            {
+              "name": {
+                "value": "reflection"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

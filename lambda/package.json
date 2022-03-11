@@ -1,0 +1,17 @@
+{
+  "name": "hashicorp-principles-alexa-skill",
+  "version": "1.0.0",
+  "description": "An Alexa skill to learn about the principles of HashiCorp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nara Kasbergen <nara.kasbergen@gmail.com>",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "ask-sdk-core": "^2.0.0",
+    "ask-sdk-dynamodb-persistence-adapter": "^2.12.0",
+    "ask-sdk-model": "^1.0.0"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,22 @@
+.DS_Store
+
+# Standard JS/TS
+node_modules
+*.d.ts
+*.js
+!jest.config.js
+
+# CDKTF-specific
+cdktf.out
+cdktf.log
+*terraform.*.tfstate*
+.gen
+.terraform
+tsconfig.tsbuildinfo
+!setup.js
+
+# Alexa-specific
+.ask/
+/lambda/node_modules
+/lambda/package-lock.json
+/lambda/dist
