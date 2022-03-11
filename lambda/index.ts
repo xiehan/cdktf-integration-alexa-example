@@ -10,7 +10,6 @@ import {
 } from 'ask-sdk-core';
 import { DynamoDbPersistenceAdapter } from 'ask-sdk-dynamodb-persistence-adapter';
 import { Response, SessionEndedRequest } from 'ask-sdk-model';
-import { DynamoDB } from 'aws-sdk';
 
 /** Look up a principle by its id (array index) and craft an Alexa response */
 async function getResponseForId(id: number, handlerInput: HandlerInput, useShortResponse?: boolean) {
@@ -154,15 +153,10 @@ const skillDisabledEventHandler: RequestHandler = {
   async handle(handlerInput: HandlerInput) {
     const userId = getUserId(handlerInput.requestEnvelope);
     // delete the information in DynamoDB associated with this user ID
-    const dynamoDBClient = new DynamoDB({apiVersion : 'latest'});
-    const dynamoDBDocumentClient = new DynamoDB.DocumentClient({
-        convertEmptyValues: true,
-        service: dynamoDBClient,
-    });
-    await dynamoDBDocumentClient.delete({
-      Key: {[process.env.DYNAMODB_TABLE_HASH_KEY as string]: userId},
-      TableName: process.env.DYNAMODB_TABLE_NAME as string,
-    }).promise();
+    if (typeof handlerInput.attributesManager.deletePersistentAttributes !== 'undefined') {
+      await handlerInput.attributesManager.deletePersistentAttributes();
+      console.log(`Data successfully deleted from DynamoDB for user ${userId}`);
+    }
 
     return handlerInput.responseBuilder.getResponse(); // return an empty response
   },
