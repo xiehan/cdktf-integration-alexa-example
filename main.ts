@@ -39,8 +39,8 @@ class AlexaSkillStack extends TerraformStack {
       hashKey: 'id',
       attribute: [{ name: 'id', type: 'S' }],
       billingMode: 'PROVISIONED',
-      readCapacity: 5, // N.B. This is low for production usage; adjust as needed
-      writeCapacity: 5, // Again: adjust as needed
+      readCapacity: options.environment === 'production' ? 30 : 5, // adjust as needed
+      writeCapacity: options.environment === 'production' ? 30 : 5, // adjust as needed
       tags: {
         environment: options.environment,
       },
@@ -92,8 +92,9 @@ class AlexaSkillStack extends TerraformStack {
       role: role.arn,
       filename: code.asset.path,
       sourceCodeHash: code.asset.assetHash,
-      memorySize: 512,
+      memorySize: options.environment === 'production' ? 512 : 256,
       timeout: 10, // Alexa CF template uses 60 but that seems like overkill since Alexa itself times out after 7 seconds
+      reservedConcurrentExecutions: options.environment === 'production' ? 100 : 10, // adjust as needed
       environment: {
         variables: {
           ALEXA_SKILL_ID: options.skillId,
