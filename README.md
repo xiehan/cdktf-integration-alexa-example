@@ -28,7 +28,7 @@ Next, you need to install/run the following (if you've run this or a similar tut
 
     Then run `ask configure` to log in with your Amazon Developer account and link your AWS credentials
 
-    Assuming that you want to use the AWS profile you just configured in the previous step, you'll also want to run `export AWS_PROFILE="ask_cli_default"` and/or store that environment variable in a way where it persists for this project
+    When it runs you through creating a new AWS IAM user, see if you have the option to add DynamoDB (read/write) permissions. If not, you'll have to go into IAM afterwards to add those permissions to this user yourself.
 
 ### Setup
 
@@ -42,6 +42,12 @@ Navigate to the cloned repository:
 
 ```shell
 cd cdktf-integration-alexa-example
+```
+
+Assuming that you want to use the AWS profile you configured in the [Prerequisites](#prerequisites) section, run:
+
+```shell
+export AWS_PROFILE="ask_cli_default"
 ```
 
 Use the ASK CLI to create your Alexa skill and retrieve its ID (which we need in order to do anything else):
