@@ -168,7 +168,7 @@ The bundled Alexa skill, named "HashiCorp Principles", is a simple conversationa
   - _"Alexa, ask HashiCorp Principles for help"_ will give you a menu of options to choose from
   - _"Alexa, stop"_ or _"Alexa, exit"_ will close the skill at any time when it is active
 
-The skill uses an [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) table for session persistence, ensuring that whenever you speak an utterance that should give you a random principle or the next principle in the list, it will not read the same one the last time you accessed the skill. This is a fairly primitive use case for DynamoDB and session persistence, but it does the job in validating this proof-of-concept.
+The skill uses an [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) table for session persistence, ensuring that whenever you speak an utterance that should give you a random principle or the next principle in the list, it will not read the same one as the last time you accessed the skill. This is a fairly primitive use case for DynamoDB and session persistence, but it does the job in validating this proof-of-concept.
 
 All of the code powering the Alexa skill can be found in [`lambda/index.ts`](./lambda/index.ts). Note that putting all of your Alexa skill code in a single file is not recommended for complex production projects, but given that some of the folks referencing this sample project may not be familiar with Alexa skills and their common architecture, I purposely eschewed best practices in favor of keeping the repository structure as simple as possible, so that you don't have to go hunting around to try to figure out where a piece of code lives.
 

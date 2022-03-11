@@ -23,14 +23,14 @@ class AlexaSkillStack extends TerraformStack {
 
     const suffix = options.developerName ? `-${options.developerName.toLowerCase().replace(/\s/g, '')}-dev` : '';
 
-    /** Uncomment this to use a remote backend to store Terraform state
-    new RemoteBackend(this, {
-      hostname: 'app.terraform.io',
-      organization: 'my-company',
-      workspaces: {
-        name: `cdktf-integration-alexa${suffix}`,
-      },
-    }); */
+    // Uncomment this to use a remote backend to store Terraform state
+    // new RemoteBackend(this, {
+    //   hostname: 'app.terraform.io',
+    //   organization: 'my-company',
+    //   workspaces: {
+    //     name: `cdktf-integration-alexa${suffix}`,
+    //   },
+    // });
 
     // Get the code that will be running inside the Lambda function
     const code = new NodejsFunction(this, 'code', {
@@ -103,7 +103,7 @@ class AlexaSkillStack extends TerraformStack {
       sourceCodeHash: code.asset.assetHash,
       memorySize: options.environment === 'production' ? 512 : 256,
       timeout: 10, // Alexa CF template uses 60 but that seems like overkill since Alexa itself times out after 7 seconds
-      reservedConcurrentExecutions: options.environment === 'production' ? 100 : 10, // adjust as needed
+      // reservedConcurrentExecutions: options.environment === 'production' ? 800 : 10, // set this as needed
       environment: {
         variables: {
           ALEXA_SKILL_ID: options.skillId,
@@ -140,11 +140,10 @@ new AlexaSkillStack(app, 'cdktf-integration-alexa-production', {
   skillId: 'amzn1.ask.skill.xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', // Replace with your Alexa skill ID
   environment: 'production',
 });
-/** An example of how to create a development environment
-// Create a stack for a developer named Jane
-new AlexaSkillStack(app, 'cdktf-integration-alexa-jane-dev', {
-  skillId: 'amzn1.ask.skill.xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', // Replace with Jane's dev skill ID
-  environment: 'development',
-  developerName: 'jane',
-}); */
+/* Uncomment this to create a stack for a developer named Jane */
+// new AlexaSkillStack(app, 'cdktf-integration-alexa-jane-dev', {
+//   skillId: 'amzn1.ask.skill.xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', // Replace with Jane's dev skill ID
+//   environment: 'development',
+//   developerName: 'jane',
+// });
 app.synth();

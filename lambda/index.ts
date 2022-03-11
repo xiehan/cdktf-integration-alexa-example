@@ -12,7 +12,7 @@ import { DynamoDbPersistenceAdapter } from 'ask-sdk-dynamodb-persistence-adapter
 import { Response, SessionEndedRequest } from 'ask-sdk-model';
 import { DynamoDB } from 'aws-sdk';
 
-// Look up a principle by its id (array index) and craft an Alexa response
+/** Look up a principle by its id (array index) and craft an Alexa response */
 async function getResponseForId(id: number, handlerInput: HandlerInput, useShortResponse?: boolean) {
   const principle = principles[id];
   // Concatenate a standard message with the random principle name and simple explanation

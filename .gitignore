@@ -6,6 +6,9 @@ node_modules
 *.js
 !jest.config.js
 
+# Because this is an example codebase, we don't want to check in package-lock, but you might
+package-lock.json
+
 # CDKTF-specific
 cdktf.out
 cdktf.log
